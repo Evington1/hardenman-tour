@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex">
-<title>Hardeman Saturday Tour</title>
+<title>Hardeman Home Tour</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;600;700&display=swap">
 <style>
 html{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}
@@ -116,6 +116,9 @@ section.add p{color:var(--muted);font-size:.9rem;margin:0 0 12px}
 footer{margin-top:30px;font-size:.85rem;color:var(--muted)}
 footer p{margin:4px 0}
 .status{font-size:.8rem;color:var(--muted)}
+details.past{margin-top:34px;border-top:1px solid var(--line);padding-top:16px}
+details.past>summary{cursor:pointer;font-family:var(--font-display);font-size:1.15rem;padding:6px 0}
+.chip.fav{background:var(--love-soft);color:var(--love);font-weight:600}
 .namebar{display:flex;flex-direction:column;gap:4px;margin:14px 0;font-size:.8rem;color:var(--muted)}
 .namebar input{font:inherit;font-size:1rem;border:1px solid var(--line);border-radius:8px;padding:9px 12px;background:var(--surface);color:var(--fg);max-width:320px}
 @media (prefers-reduced-motion:no-preference){.rbtn{transition:background .15s,color .15s}}
@@ -123,31 +126,36 @@ footer p{margin:4px 0}
 </head>
 <body>
 <header class="day"><div class="wrap">
-  <h1>Hardeman Saturday Tour</h1>
-  <span class="sub">Saturday, Nov 8 · first showing 9:30 AM · wrap by 1:00 PM</span>
+  <h1>Hardeman Home Tour</h1>
+  <span class="sub">Wednesday, Nov 11 · Rockwall · first showing 12:00 PM</span>
 </div></header>
 
 <div class="wrap">
   <section class="hero">
-    <div class="eyebrow">Breena &amp; Jerome · Heath / Forney</div>
-    <h2>Six homes, one morning, and your honest take on each.</h2>
+    <div class="eyebrow">Breena &amp; Jerome · Round two · Rockwall</div>
+    <h2>Six Rockwall homes on Wednesday, south to north.</h2>
     <p>Tap <b>Love</b>, <b>Like</b> or <b>Pass</b> under each house as you walk through it, and leave a note while it is fresh. Each tap goes straight to Everett’s phone, and your picks stay on this page the next time you open it on this device.</p>
     <div class="namebar"><label for="viewer-name">Your name (so Everett knows who said what)</label><input id="viewer-name" placeholder="Breena or Jerome"></div>
     <div class="stats" id="stats">
       <div class="stat"><b id="st-count">6</b><span>homes on the route</span></div>
-      <div class="stat"><b>9:30 – 1:00</b><span>showing window</span></div>
-      <div class="stat"><b>~17 mi</b><span>total driving</span></div>
-      <div class="stat"><b>4 min</b><span>longest hop inside Travis Ranch</span></div>
+      <div class="stat"><b>12:00 – 3:50</b><span>showing window</span></div>
+      <div class="stat"><b>~16 mi</b><span>total driving, 32 min</span></div>
+      <div class="stat"><b>4 of 6</b><span>have a pool</span></div>
     </div>
       </section>
 
   <div class="timeline" id="timeline"></div>
 
+  <details class="past" id="past">
+    <summary>Saturday, Nov 8 tour · Heath and Forney · 6 homes (done)</summary>
+    <div class="timeline" id="timeline-sat"></div>
+  </details>
+
   
 
   <footer>
     <p><b>Financing basis:</b> Rocket Mortgage verified approval, conventional 30-year fixed at 6.63%, approved to $600,000, expires 01/30/2027. Payments shown use $30,000 down and include principal and interest, the current tax bill, HOA, estimated PMI (0.5% of the loan per year) and estimated insurance (about 0.65% of price per year). Rocket will quote exact PMI and insurance. Taxes reset to the purchase price after closing, so budget about 10% above the figures shown.</p>
-    <p><b>Note on the down payment:</b> the approval caps the loan at 90% of price. $30,000 is 7 to 8% on these homes, so each card also shows the payment at a true 10% down. Everett is confirming options with Blake McMahon at Rocket.</p>
+    <p><b>Note on the down payment:</b> the approval caps the loan at 90% of price. $30,000 is 6 to 8% on these homes, so each card also shows the payment at a true 10% down. Everett is confirming options with Blake McMahon at Rocket.</p>
     <p>Want another home added to this list? Text Everett the address or MLS number and it will be on here within the hour.</p>
     <p>Everett Jefferson, Realtor® · eXp Realty – Hunt Group Collective · 240-565-8941 · everett.jefferson@exprealty.com</p>
   </footer>
@@ -171,14 +179,26 @@ footer p{margin:4px 0}
     {id:'21311187',order:2,time:'10:00 – 10:25',addr:'2002 Tahoka Ln',city:'Heath, TX 75126',mls:'21311187',price:366000,yr:'2020',sqft:2058,bb:'4 / 3',gar:'2-car',lot:'0.24 ac',tax:8055,hoa:455,community:'Travis Ranch · Rockwall ISD',drive:'1 min · under ½ mi',notes:'The one Breena sent. Biggest lot of the Travis Ranch four. Seller may ask for a short lease-back after closing. 115 days on market, so there is room to negotiate.',link:''},
     {id:'21317824',order:3,time:'10:30 – 10:55',addr:'2020 Bronte Dr',city:'Heath, TX 75126',mls:'21317824',price:368500,yr:'2019',sqft:2440,bb:'4 / 3',gar:'2-car',lot:'0.20 ac',tax:8071,hoa:360,community:'Travis Ranch · Rockwall ISD',drive:'2 min · under 1 mi',notes:'Former builder model, never lived in. Lowest HOA on the list. Price was cut 1.7% recently.',link:''},
     {id:'21424140',order:4,time:'11:00 – 11:25',addr:'2053 Placerville St',city:'Heath, TX 75126',mls:'21424140',price:399900,yr:'2023',sqft:2502,bb:'4 / 3',gar:'2-car',lot:'0.17 ac',tax:8290,hoa:407,community:'Travis Ranch · Rockwall ISD',drive:'4 min · 1.3 mi via Callahan Dr',notes:'Just listed (under a week). Lowest effective tax rate of the group at 2.07%.',link:''},
-    {id:'21376490',order:5,time:'11:35 – 12:10',addr:'316 Symphony Ave',city:'Forney, TX 75126',mls:'21376490',price:449990,yr:'2025 new',sqft:3075,bb:'4 / 3',gar:'3-car',lot:'0.35 ac',tax:9900,taxEst:true,hoa:1125,community:'Lovers Landing · Forney ISD · no MUD',drive:'9 min · 4.3 mi via Lake Ray Hubbard Dr',notes:'Brand-new Beazer build on an 80-ft lot, the biggest home and yard on the tour. Shown by the Beazer office (108 Aria Ct, open Sat 10–6). Tax bill is an estimate at 2.2% since there is no assessment yet.',link:''},
+    {id:'21376490',order:5,time:'11:35 – 12:10',addr:'316 Symphony Ave',city:'Forney, TX 75126',mls:'21376490',price:449990,yr:'2025 new',sqft:3075,bb:'4 / 3',gar:'3-car',lot:'0.35 ac',tax:9900,taxEst:true,hoa:1125,community:'Lovers Landing · Forney ISD · no MUD',fav:true,drive:'9 min · 4.3 mi via Lake Ray Hubbard Dr',notes:'Brand-new Beazer build on an 80-ft lot, the biggest home and yard on the tour. Shown by the Beazer office (108 Aria Ct, open Sat 10–6). Tax bill is an estimate at 2.2% since there is no assessment yet.',link:''},
     {id:'21292556',order:6,time:'12:20 – 12:50',addr:'1001 Brigham Dr',city:'Forney, TX 75126',mls:'21292556',price:390000,yr:'2011',sqft:2819,bb:'4 / 3',gar:'2-car',lot:'0.26 ac',tax:11650,hoa:600,community:'Devonshire · Forney ISD · MUD',drive:'10 min · 3.9 mi via Ranch Rd',notes:'The pool home on the list. Gunite pool, fenced dog run and a quarter-acre lot in Devonshire, with the community\u2019s pools, parks and trails. 2011 build. Highest tax rate on the tour (about 3%, MUD included). FHA accepted. Books through BrokerBay.',link:''}
 
   ];
 
+  // Wednesday Nov 11, Rockwall. Ordered south to north.
+  const WED=[
+    {id:'21414448',order:1,time:'12:00 – 12:30',addr:'1455 Corrara Dr',city:'Rockwall, TX 75032',mls:'21414448',price:475000,yr:'2017',sqft:2751,bb:'4 / 3',gar:'3-car',lot:'0.23 ac',tax:7089,hoa:996,community:'Sonoma Verde · Rockwall ISD',drive:'Start here',notes:'Newest home of the day and the only single story with a 3-car garage. The 4th bedroom is its own attached suite with a separate front entry, sitting room, kitchenette and full bath. Open kitchen, dining and living with a stone gas fireplace, plus an office. Covered patio with a fan and a fenced yard. Roof replaced 2023. On the market 10 days. No pool; the community has one.',link:''},
+    {id:'21306784',order:2,time:'12:45 – 1:15',addr:'1419 Madison Dr',city:'Rockwall, TX 75032',mls:'21306784',price:475000,yr:'1999',sqft:2818,bb:'5 / 2.5',gar:'2-car',lot:'0.16 ac',tax:6454,hoa:280,community:'Meadowcreek Estates · Rockwall ISD',pool:true,drive:'12 min · 7.2 mi via Hwy 205 N',notes:'Five bedrooms, a study and an upstairs game room on a corner lot across from the greenbelt and walking trail. Heated diving pool, resurfaced this year, and a covered outdoor living area added in 2021. Seller is offering a $10,000 credit to use toward the rate, price or closing costs. Tesla wall charger in the garage. Vacant. 116 days on market.',link:''},
+    {id:'21410412',order:3,time:'1:25 – 1:55',addr:'1539 Murphy Dr',city:'Rockwall, TX 75087',mls:'21410412',price:399900,yr:'1998',sqft:1882,bb:'3 / 2',gar:'2-car',lot:'0.18 ac',tax:6199,hoa:185,community:'Waterstone Estates · Rockwall ISD',pool:true,drive:'6 min · 1.9 mi via S Goliad St',notes:'The smallest home on the list and one of the two under $400K. In-ground gunite pool. Lowest tax bill and lowest HOA of the day. Price came down 2.4% recently.',link:''},
+    {id:'21328321',order:4,time:'2:05 – 2:35',addr:'1365 Calistoga Dr',city:'Rockwall, TX 75087',mls:'21328321',price:395000,yr:'2001',sqft:2072,bb:'4 / 2',gar:'2-car',lot:'0.24 ac',tax:6817,hoa:500,community:'Lakeview Summit · Rockwall ISD',pool:true,drive:'7 min · 3.3 mi via S Goliad St',notes:'Single story on a quarter-acre corner lot. Pool and spa, pergola-covered patio, 10x12 shed, and a board-on-board fence with an electric driveway gate, which is handy with a big dog. Fresh paint and new flooring; roof 2021. Started at $479,000 and is now $395,000 after 102 days.',link:''},
+    {id:'21266175',order:5,time:'2:40 – 3:10',addr:'461 Sonoma Dr',city:'Rockwall, TX 75087',mls:'21266175',price:415000,yr:'2004',sqft:3070,bb:'5 / 3',gar:'2-car',lot:'0.21 ac',tax:6870,hoa:422,community:'Lakeview Summit · Rockwall ISD',drive:'1 min · around the corner',notes:'The most space for the money: 3,070 sq ft, five bedrooms, three full baths, a game room and wood floors, from the original owner. Kitchen opens to the family room. No pool. On the market 181 days and the seller is offering concessions, so this is the one with the most room to negotiate. Occupied; shoes off.',link:''},
+    {id:'21379383',order:6,time:'3:20 – 3:50',addr:'2774 Cobblestone Dr',city:'Rockwall, TX 75087',mls:'21379383',price:439999,yr:'2004',sqft:2448,bb:'3 / 2.5',gar:'2-car',lot:'0.37 ac',tax:7729,hoa:300,community:'Stoney Hollow · Rockwall ISD',pool:true,drive:'6 min · 3.2 mi via N Goliad St',notes:'The biggest yard of the day at over a third of an acre, on a cul-de-sac backing to a greenbelt. Pool, fire pit, covered patio and a dedicated dog run, with grass left over. Three bedrooms plus a game room. Price just dropped to $439,999 and the sellers are motivated; their lender is offering a 1% first-year rate buydown.',link:''}
+  ];
+
+  const ALL=WED.concat(SEED);
   const REACTIONS=[['love','Love','♥'],['like','Like','👍'],['pass','Pass','✕']];
   const ENDPOINT='https://formsubmit.co/ajax/everett.jefferson@exprealty.com';
   const timeline=document.getElementById('timeline');
+  const timelineSat=document.getElementById('timeline-sat');
   let store={};
   try{store=JSON.parse(localStorage.getItem('hardeman-tour')||'{}')||{}}catch(e){store={}}
   const nameInput=document.getElementById('viewer-name');
@@ -186,13 +206,16 @@ footer p{margin:4px 0}
   nameInput.addEventListener('change',()=>{store.__name=nameInput.value.trim();persist();});
   function persist(){try{localStorage.setItem('hardeman-tour',JSON.stringify(store))}catch(e){}}
   function myFb(id){return store[id]||{};}
-  function homesList(){return SEED.slice().sort((a,b)=>(a.order||99)-(b.order||99));}
+  const byOrder=a=>a.slice().sort((x,y)=>(x.order||99)-(y.order||99));
   function mapsLink(h){return 'https://www.google.com/maps/search/'+encodeURIComponent(h.addr+', '+(h.city||''));}
   function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 
   function render(){
-    const homes=homesList();
-    document.getElementById('st-count').textContent=homes.length;
+    document.getElementById('st-count').textContent=WED.length;
+    renderInto(timeline,byOrder(WED));
+    renderInto(timelineSat,byOrder(SEED));
+  }
+  function renderInto(target,homes){
     const frag=document.createDocumentFragment();
     homes.forEach((h,i)=>{
       if(i>0){const leg=document.createElement('div');leg.className='leg';leg.innerHTML='<span class="car">🚗 '+esc(h.drive||'')+'</span>';frag.appendChild(leg);}
@@ -206,7 +229,7 @@ footer p{margin:4px 0}
         +'<h3><a href="'+mapsLink(h)+'" target="_blank" rel="noopener">'+esc(h.addr)+'</a></h3>'
         +'<div class="meta">'+esc(h.city)+' · MLS '+esc(h.mls)+'</div></div>'
         +'<div class="price">'+money(h.price)+'</div></div>';
-      html+='<div class="chips"><span class="chip accent">'+esc(h.community)+'</span><span class="chip">Built '+esc(h.yr)+'</span></div>';
+      html+='<div class="chips"><span class="chip accent">'+esc(h.community)+'</span><span class="chip">Built '+esc(h.yr)+'</span>'+(h.pool?'<span class="chip">Pool</span>':'')+(h.fav?'<span class="chip fav">♥ Your favorite from Saturday</span>':'')+'</div>';
       html+='<div class="facts">'
         +'<div class="fact"><span>Sq ft</span><b>'+Number(h.sqft).toLocaleString()+'</b></div>'
         +'<div class="fact"><span>Beds / baths</span><b>'+esc(h.bb)+'</b></div>'
@@ -234,7 +257,7 @@ footer p{margin:4px 0}
       card.innerHTML=html;
       frag.appendChild(card);
     });
-    timeline.replaceChildren(frag);
+    target.replaceChildren(frag);
   }
 
   async function send(h,fb,kind){
@@ -247,7 +270,7 @@ footer p{margin:4px 0}
   }
 
   async function saveFb(h,patch,kind){
-    const card=timeline.querySelector('.card[data-id="'+CSS.escape(h.id)+'"]');
+    const card=document.querySelector('.card[data-id="'+CSS.escape(h.id)+'"]');
     const saved=card&&card.querySelector('[data-saved]');
     const next={...myFb(h.id),...patch,updatedAt:new Date().toISOString()};
     store[h.id]=next;persist();
@@ -256,9 +279,9 @@ footer p{margin:4px 0}
     catch(e){if(saved)saved.textContent='Saved here, but could not reach Everett. Text him instead.';}
   }
 
-  timeline.addEventListener('click',async e=>{
+  async function onClick(e){
     const card=e.target.closest('.card');if(!card)return;
-    const h=SEED.find(x=>x.id===card.dataset.id);if(!h)return;
+    const h=ALL.find(x=>x.id===card.dataset.id);if(!h)return;
     const rb=e.target.closest('.rbtn');
     if(rb){
       const r=rb.dataset.r;const cur=myFb(h.id).reaction;
@@ -270,7 +293,9 @@ footer p{margin:4px 0}
       if(!v)return;
       await saveFb(h,{note:v},'note');
     }
-  });
+  }
+  timeline.addEventListener('click',onClick);
+  timelineSat.addEventListener('click',onClick);
 
   render();
 })();
