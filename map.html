@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Hardeman Home Map</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+/* Layout: map fills the left, a scrolling list of homes on the right; on phones the map sits on top and the list below. */
+:root{
+  --bg:#f3f4f1; --surface:#ffffff; --surface-2:#e9ebe6; --line:#d3d7cf;
+  --fg:#1d2420; --muted:#5d665f;
+  --accent:#1f6f6b; --accent-ink:#ffffff; --accent-soft:#d9ecea;
+  --c-near:#1f6f6b; --c-colony:#2f5fa8; --c-north:#7a4fa3; --c-new:#c96a1b; --c-town:#8a8f94; --c-work:#1d2420;
+  --love:#b8363a; --love-soft:#f6dfe0; --like:#2b7a4b; --like-soft:#dcefe2; --pass:#6b6f73; --pass-soft:#e4e6e8;
+  --font-display:"Young Serif",Georgia,"Times New Roman",serif;
+  --font-body:"Figtree","Segoe UI",Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:15px;line-height:1.45;display:flex;flex-direction:column}
+a{color:var(--accent)}
+header{background:var(--surface);border-bottom:1px solid var(--line);padding:12px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));display:flex;flex-wrap:wrap;gap:4px 16px;align-items:baseline}
+header h1{font-family:var(--font-display);font-weight:400;font-size:1.3rem;margin:0}
+header .sub{color:var(--muted);font-size:.88rem}
+header .nav{margin-left:auto;font-size:.88rem}
+.filters{background:var(--surface);border-bottom:1px solid var(--line);padding:8px max(16px,env(safe-area-inset-right,0px)) 8px max(16px,env(safe-area-inset-left,0px));display:flex;gap:6px;overflow-x:auto}
+.fchip{flex:0 0 auto;border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:999px;padding:6px 12px;font:inherit;font-size:.82rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+.fchip .dot{width:11px;height:11px;border-radius:50%;background:var(--dot)}
+.fchip[aria-pressed="false"]{opacity:.45}
+.fchip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+main{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 380px}
+#map{min-height:0;height:100%;background:var(--surface-2)}
+#list{overflow-y:auto;border-left:1px solid var(--line);background:var(--bg);padding:12px}
+.grp{font-family:var(--font-display);font-size:1.05rem;margin:14px 2px 8px;display:flex;align-items:center;gap:8px}
+.grp:first-child{margin-top:2px}
+.grp .dot{width:12px;height:12px;border-radius:50%;background:var(--dot)}
+.item{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px;cursor:pointer}
+.item.active{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+.item .top{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.item h3{font-size:1rem;margin:0;font-weight:700}
+.item .price{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.item .meta{color:var(--muted);font-size:.84rem;margin-top:2px}
+.item .drive{font-size:.84rem;margin-top:4px;font-variant-numeric:tabular-nums}
+.item .note{font-size:.86rem;margin-top:6px}
+.tag{display:inline-block;font-size:.7rem;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--surface-2);margin-right:4px}
+.react{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;align-items:center}
+.rbtn{border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:999px;padding:5px 11px;font:inherit;font-size:.82rem;font-weight:600;cursor:pointer}
+.rbtn[data-r="love"].on{background:var(--love-soft);border-color:var(--love);color:var(--love)}
+.rbtn[data-r="like"].on{background:var(--like-soft);border-color:var(--like);color:var(--like)}
+.rbtn[data-r="pass"].on{background:var(--pass-soft);border-color:var(--pass);color:var(--pass)}
+.saved{font-size:.75rem;color:var(--muted)}
+.namebar{display:flex;flex-direction:column;gap:4px;margin:2px 2px 10px;font-size:.78rem;color:var(--muted)}
+.namebar input{font:inherit;font-size:.95rem;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--surface);color:var(--fg)}
+.foot{font-size:.78rem;color:var(--muted);margin:14px 2px 6px}
+.pin{width:26px;height:26px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.45);background:var(--pc)}
+.pin.work{border-radius:6px;transform:none;display:grid;place-items:center;color:#fff;font-size:14px;width:30px;height:30px}
+.leaflet-popup-content{font-family:var(--font-body);font-size:13.5px;line-height:1.4;margin:10px 12px}
+.leaflet-popup-content b.p{font-size:15px}
+@media (max-width:800px){
+  body{height:auto;min-height:100%}
+  main{display:block}
+  #map{height:52vh;position:sticky;top:0;z-index:2}
+  #list{border-left:0;overflow:visible}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>Hardeman Home Map</h1>
+  <span class="sub">Every home and new-build community on your list · drive times are from Jerome's work</span>
+  <span class="nav"><a href="./">Tour schedule →</a></span>
+</header>
+<div class="filters" id="filters"></div>
+<main>
+  <div id="map" aria-label="Map of homes"></div>
+  <div id="list">
+    <div class="namebar"><label for="viewer-name">Your name (so Everett knows who said what)</label><input id="viewer-name" placeholder="Breena or Jerome"></div>
+    <div id="items"></div>
+    <p class="foot">Drive times were checked from 4250 Samuell Blvd, Mesquite on Thursday afternoon, Nov 12, and most routes use toll lanes; rush hour runs longer. Resale details are from the MLS. New-construction prices are from builder and listing sites on Nov 12 and can change; pins for brand-new streets are approximate. Everett Jefferson, Realtor® · eXp Realty – Hunt Group Collective · 240-565-8941</p>
+  </div>
+</main>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+(function(){
+  const CATS={
+    near:{label:'Near Carrollton',color:'#1f6f6b'},
+    colony:{label:'The Colony & Lewisville',color:'#2f5fa8'},
+    north:{label:'McKinney & Frisco resale',color:'#7a4fa3'},
+    newb:{label:'New construction',color:'#c96a1b'},
+    town:{label:'New townhomes',color:'#8a8f94'}
+  };
+  const WORK={lat:32.791586,lng:-96.663036};
+  const H=[
+    // Near Carrollton
+    {id:'21403713',c:'near',a:'1211 Laguna Pl',city:'Carrollton',p:495000,s:'1986 · 4 bed / 2.5 bath · 3,059 sq ft · 0.30 ac',d:'34 min · 31 mi',n:'Seller pays up to $8,000 toward a rate buydown. Electric gate, 20x12 covered patio, no HOA.',lat:32.97368,lng:-96.89962},
+    {id:'21416117',c:'near',a:'3103 Aspen',city:'Carrollton',p:375000,s:'1984 · 4 bed / 2.5 bath · 2,245 sq ft · 0.21 ac',d:'35 min · 30 mi',n:'Just reduced from $399,999. Diving pool, covered patio, no HOA.',lat:32.99755,lng:-96.91480},
+    {id:'21408153',c:'near',a:'1464 Summerhill Dr',city:'Carrollton',p:499000,s:'1999 · 4 bed / 2.5 bath · 2,640 sq ft · corner lot',d:'36 min · 30 mi',n:'Down from $539,000. Covered patio, community pool.',lat:33.00506,lng:-96.92332},
+    {id:'21424488',c:'near',a:'1605 Hawkins Ct',city:'Carrollton',p:490000,s:'2000 · 4 bed / 2.5 bath + office · 2,705 sq ft',d:'37 min · 33 mi',n:'Cul-de-sac, community pool and tennis. Sold as-is.',lat:33.02640,lng:-96.93542},
+    {id:'21362434',c:'near',a:'3723 White River Dr',city:'Dallas 75287',p:495000,s:'1997 · 4 bed / 3 bath · 2,321 sq ft · 0.17 ac',d:'34 min · 25 mi',n:'Down from $550,000.',lat:33.0032464,lng:-96.8496199},
+    {id:'21409702',c:'near',a:'149 Kilbridge Ct',city:'Coppell',p:475000,s:'2000 · 4 bed / 3 bath · 2,662 sq ft',d:'38 min · 33 mi',n:'New listing. Two primary bedrooms downstairs, backs to a greenbelt. Sold as-is.',lat:32.99254,lng:-96.99816},
+    {id:'21331639',c:'near',a:'530 Shadowcrest Ln',city:'Coppell',p:405000,s:'3 bed / 2 bath · 2,047 sq ft · 0.16 ac',d:'about 38 min',n:'Pool. On the market 120 days.',lat:32.96496,lng:-96.98001},
+    {id:'21404762',c:'near',a:'649 Raintree Cir',city:'Coppell',p:495000,s:'4 bed / 3 bath · 2,078 sq ft',d:'about 38 min',n:'Smaller lot.',lat:32.98323,lng:-96.96893},
+    {id:'21281302',c:'near',a:'559 Raintree Cir',city:'Coppell',p:499500,s:'3 bed / 2.5 bath · 2,092 sq ft · 0.16 ac',d:'about 38 min',n:'On the market 167 days.',lat:32.9831975,lng:-96.9691249},
+    {id:'21298282',c:'near',a:'559 Hawken Dr',city:'Coppell',p:499500,s:'2000 · 3 bed / 2.5 bath · 2,015 sq ft',d:'about 38 min',n:'Down from $549,500.',lat:32.96257,lng:-97.00768},
+    // The Colony & Lewisville
+    {id:'21400333',c:'colony',a:'6432 Barstow Ln',city:'The Colony',p:485000,s:'1999 · 4 bed / 2 bath + game room · 2,339 sq ft · 3-car',d:'39 min · 33 mi',n:'Open layout, covered patio, big grass yard, community pools and trails. Open house Sat 1–3.',lat:33.08794,lng:-96.86095},
+    {id:'21216459',c:'colony',a:'4201 Standridge Dr',city:'The Colony',p:399000,s:'1998 · 4 bed / 2 bath · 2,472 sq ft · 0.18 ac',d:'40 min · 37 mi',n:'Down from $490,000. Covered patio, large fenced yard, no HOA.',lat:33.07399,lng:-96.89788},
+    {id:'21424195',c:'colony',a:'1439 Wellesley Dr',city:'Lewisville',p:464900,s:'2012 · 4 bed / 2.5 bath · 2,418 sq ft',d:'41 min · 36 mi',n:'Open layout, new covered patio, new roof, hardwood floors.',lat:33.02840,lng:-97.01516},
+    {id:'21274652',c:'colony',a:'1342 Clear Creek Dr',city:'Lewisville',p:385000,s:'1998 · 3 bed / 2.5 bath · 2,588 sq ft · 0.20 ac',d:'43 min · 38 mi',n:'Down from $470,000. Backs to a greenbelt.',lat:33.02937,lng:-97.03040},
+    {id:'21213434',c:'colony',a:'4616 Red Bud Ct',city:'The Colony',p:474900,s:'2025, brand new · 4 bed / 2.5 bath · 2,049 sq ft',d:'46 min · 37 mi',n:'Open layout, no HOA. Lender offering a 2-1 rate buydown.',lat:33.10416,lng:-96.89371},
+    // McKinney & Frisco resale
+    {id:'21347572',c:'north',a:'7420 E Fork Ln',city:'McKinney',p:465000,s:'2016 · 4 bed / 3 bath · 2,558 sq ft · 3-car',d:'47 min · 42 mi',n:'Trinity Falls. Open layout, covered patio.',lat:33.27650,lng:-96.62442},
+    {id:'21369764',c:'north',a:'3320 Prairie Pl',city:'McKinney',p:450000,s:'2021 · 4 bed · 2,506 sq ft',d:'48 min · 43 mi',n:'Honey Creek. Covered patio, clubhouse and pool.',lat:33.27972,lng:-96.63818},
+    {id:'21363395',c:'north',a:'3729 Holley Ridge Way',city:'McKinney',p:454999,s:'2019 · 3 bed / 2 bath · 2,351 sq ft · 0.19 ac',d:'about 48 min',n:'Erwin Farms. Covered patio, private yard.',lat:33.23675,lng:-96.66157},
+    {id:'21340756',c:'north',a:'15943 River Glen Dr',city:'Frisco',p:490000,s:'2012 · 3 bed / 2 bath · 2,394 sq ft · 3-car',d:'49 min · 41 mi',n:'Down from $560,000. Covered patio, corner lot.',lat:33.18317,lng:-96.73577},
+    {id:'21412753',c:'north',a:'518 Stagg St',city:'McKinney',p:410000,s:'2025 · 5 bed / 3 bath · 3,019 sq ft',d:'58 min · 44 mi',n:'Most house for the money. Covered patio, large yard, community pool.',lat:33.1739751,lng:-96.5380714},
+    // New construction (detached)
+    {id:'nb-seminole',c:'newb',a:'3904 Seminole St',city:'McKinney · Painted Tree (Tri Pointe)',p:499997,s:'New · 5 bed / 3 bath · 2,474 sq ft · ready now',d:'45 min · 40 mi',n:'Extended covered patio.',lat:33.2319593,lng:-96.665039},
+    {id:'nb-reveille',c:'newb',a:'4624 Reveille Dr',city:'McKinney · Painted Tree (Normandy)',p:460520,s:'New · 4 bed / 3 bath · 2,420 sq ft · ready December',d:'53 min · 42 mi',n:'',lat:33.2411155,lng:-96.6773713},
+    {id:'nb-shady',c:'newb',a:'2700 Shady Branch Ln',city:'McKinney · Trinity Falls (Coventry)',p:474990,s:'New · 3 bed / 2.5 bath · 2,003 sq ft · ready now',d:'55 min · 44 mi',n:'',lat:33.288695,lng:-96.6330516},
+    {id:'nb-aster',c:'newb',a:'Aster Park',city:'McKinney · M/I and Highland',p:440000,from:true,s:'New · gated · 40-ft lots',d:'51 min · 45 mi',n:'Homes from the $440s.',lat:33.2701707,lng:-96.7094222},
+    {id:'nb-eastridge',c:'newb',a:'412 Watertown Dr',city:'McKinney · Eastridge (Meritage)',p:432062,s:'New · 5 bed / 3 bath · 3,060 sq ft',d:'56 min · 45 mi',n:'',lat:33.2317267,lng:-96.5161838},
+    {id:'nb-eliana',c:'newb',a:'Eliana',city:'McKinney · M/I Homes',p:514990,from:true,s:'New · detached',d:'57 min · 48 mi',n:'A stretch above $500,000.',lat:33.252907,lng:-96.7298866},
+    {id:'nb-gramercy',c:'newb',a:'1516 Gramercy Dr',city:'Frisco · Villages of Creekwood (First Texas)',p:564950,s:'New · 3 bed / 3 bath · 2,009 sq ft · ready now',d:'51 min · 39 mi',n:'The only new detached home under $600,000 found in Frisco.',lat:33.15321,lng:-96.90405},
+    {id:'nb-mustang',c:'newb',a:'8827 Shoppers Ln',city:'Plano · Mustang Square (D.R. Horton)',p:531990,s:'New · 4 bed · 1,810 sq ft',d:'36 min · 32 mi',n:'Small detached home; the only new detached option in Plano.',lat:33.099724,lng:-96.79049},
+    {id:'nb-crosby',c:'newb',a:'1362 E Crosby Rd',city:'Carrollton · Carroll Crest (InTown)',p:561900,s:'New · 3 bed / 2.5 bath · 1,756 sq ft · ready now',d:'31 min · 26 mi',n:'The only new home in Carrollton under $600,000. May be attached; Everett is confirming.',lat:32.94831,lng:-96.90331},
+    {id:'nb-mystic',c:'newb',a:'1941 Mystic Way',city:'Oak Point · Chaparral Park (Bloomfield)',p:438000,s:'New · 4 bed / 3 bath · 2,102 sq ft · ready December',d:'55 min · 49 mi',n:'Was $465,018. Builder offering $10,000 in upgrades and $10,000 toward closing through Nov 30.',lat:33.1929972,lng:-96.9816932},
+    {id:'nb-apollo',c:'newb',a:'4140 Apollo Bay Ave',city:'Little Elm · Spiritas Ranch (Lennar)',p:417999,s:'New · 4 bed / 3 bath · 2,371 sq ft',d:'57 min · 51 mi',n:'',lat:33.21665,lng:-96.96984},
+    {id:'nb-cherry',c:'newb',a:'7220 Cherry Blossom Ln',city:'Little Elm · Union Park (Bloomfield)',p:479000,s:'New · 4 bed / 3 bath · 2,450 sq ft · ready now',d:'59 min · 47 mi',n:'Was $597,058.',lat:33.2387488,lng:-96.9196415},
+    {id:'nb-soapberry',c:'newb',a:'1537 Soapberry Dr',city:'Aubrey · ArrowBrooke (Bloomfield)',p:429000,s:'New · 4 bed / 3 bath · 2,098 sq ft · ready November',d:'59 min · 47 mi',n:'Was $512,580.',lat:33.2413261,lng:-96.907962},
+    {id:'nb-spur',c:'newb',a:'4413 Silver Spur Ct',city:'Aubrey · Sandbrock Ranch (David Weekley)',p:499990,s:'New · 5 bed / 4 bath · 3,209 sq ft · ready now',d:'60 min · 47 mi',n:'Builder offering up to $20,000 through Dec 31.',lat:33.265949,lng:-96.911964},
+    // Townhomes
+    {id:'th-collin',c:'town',a:'Collin Creek',city:'Plano · Ashton Woods',p:445000,from:true,s:'New townhomes',d:'29 min · 23 mi',n:'Shortest drive of anything new.',lat:33.0166026,lng:-96.7154552},
+    {id:'th-fields',c:'town',a:'Fields East Village',city:'Frisco · Landon Homes',p:529990,from:true,s:'New townhomes',d:'44 min · 39 mi',n:'',lat:33.1756948,lng:-96.8072256},
+    {id:'th-hazel',c:'town',a:'Hazelwood',city:'Frisco · CB JENI',p:450000,from:true,s:'New townhomes',d:'49 min · 42 mi',n:'From the mid $400s.',lat:33.21011,lng:-96.87680},
+    {id:'th-enfield',c:'town',a:'2880 Enfield',city:'The Colony · Tribute Townhomes (Grenadier)',p:499900,s:'New townhome · 3 bed / 2.5 bath · 2,004 sq ft',d:'54 min · 40 mi',n:'',lat:33.1030494,lng:-96.9272381}
+  ];
+
+  const money=v=>'$'+Math.round(v).toLocaleString('en-US');
+  const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const ENDPOINT='https://formsubmit.co/ajax/everett.jefferson@exprealty.com';
+  let store={};try{store=JSON.parse(localStorage.getItem('hardeman-tour')||'{}')||{}}catch(e){}
+  const persist=()=>{try{localStorage.setItem('hardeman-tour',JSON.stringify(store))}catch(e){}};
+  const nameInput=document.getElementById('viewer-name');nameInput.value=store.__name||'';
+  nameInput.addEventListener('change',()=>{store.__name=nameInput.value.trim();persist();});
+
+  const map=L.map('map',{scrollWheelZoom:true}).setView([33.08,-96.85],10);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
+  const pin=(color)=>L.divIcon({className:'',html:'<div class="pin" style="--pc:'+color+'"></div>',iconSize:[26,26],iconAnchor:[13,26],popupAnchor:[0,-24]});
+  L.marker([WORK.lat,WORK.lng],{icon:L.divIcon({className:'',html:'<div class="pin work" style="--pc:#1d2420">★</div>',iconSize:[30,30],iconAnchor:[15,15]}),zIndexOffset:1000}).addTo(map).bindPopup('<b class="p">Jerome\'s work</b><br>4250 Samuell Blvd, Mesquite');
+
+  const active=new Set(Object.keys(CATS));
+  const markers={};
+  const gmaps=h=>'https://www.google.com/maps/search/'+encodeURIComponent(h.a+', '+h.city.split(' · ')[0]+', TX');
+  const priceTxt=h=>(h.from?'from ':'')+money(h.p);
+  H.forEach(h=>{
+    const m=L.marker([h.lat,h.lng],{icon:pin(CATS[h.c].color)});
+    m.bindPopup('<b class="p">'+esc(h.a)+'</b><br>'+esc(h.city)+'<br><b>'+priceTxt(h)+'</b><br>'+esc(h.s)+'<br>🚗 '+esc(h.d)+' from Jerome\'s work'+(h.n?'<br>'+esc(h.n):'')+'<br><a href="'+gmaps(h)+'" target="_blank" rel="noopener">Open in Google Maps</a>');
+    m.on('click',()=>select(h.id,false));
+    markers[h.id]=m;
+  });
+
+  const filters=document.getElementById('filters');
+  Object.entries(CATS).forEach(([k,c])=>{
+    const b=document.createElement('button');b.className='fchip';b.type='button';b.setAttribute('aria-pressed','true');b.style.setProperty('--dot',c.color);
+    b.innerHTML='<span class="dot"></span>'+esc(c.label)+' ('+H.filter(h=>h.c===k).length+')';
+    b.addEventListener('click',()=>{if(active.has(k))active.delete(k);else active.add(k);b.setAttribute('aria-pressed',active.has(k));render();});
+    filters.appendChild(b);
+  });
+
+  const items=document.getElementById('items');
+  const R=[['love','♥ Love'],['like','👍 Like'],['pass','✕ Pass']];
+  function render(){
+    let html='';
+    Object.entries(CATS).forEach(([k,c])=>{
+      if(!active.has(k))return;
+      html+='<div class="grp" style="--dot:'+c.color+'"><span class="dot"></span>'+esc(c.label)+'</div>';
+      H.filter(h=>h.c===k).forEach(h=>{
+        const mine=store[h.id]||{};
+        html+='<div class="item" data-id="'+h.id+'"><div class="top"><h3>'+esc(h.a)+'</h3><span class="price">'+priceTxt(h)+'</span></div>'
+          +'<div class="meta">'+esc(h.city)+'</div><div class="meta">'+esc(h.s)+'</div>'
+          +'<div class="drive">🚗 '+esc(h.d)+' from Jerome\'s work</div>'
+          +(h.n?'<div class="note">'+esc(h.n)+'</div>':'')
+          +'<div class="react">'+R.map(r=>'<button class="rbtn'+(mine.reaction===r[0]?' on':'')+'" data-r="'+r[0]+'" type="button">'+r[1]+'</button>').join('')+'<span class="saved">'+(mine.reaction?'Sent to Everett':'')+'</span></div></div>';
+      });
+    });
+    items.innerHTML=html;
+    H.forEach(h=>{const m=markers[h.id];if(active.has(h.c)){if(!map.hasLayer(m))m.addTo(map);}else if(map.hasLayer(m))map.removeLayer(m);});
+  }
+  function select(id,fly){
+    items.querySelectorAll('.item').forEach(el=>el.classList.toggle('active',el.dataset.id===id));
+    const h=H.find(x=>x.id===id);if(!h)return;
+    if(fly){map.setView([h.lat,h.lng],Math.max(map.getZoom(),13));markers[id].openPopup();if(window.innerWidth<=800)window.scrollTo({top:0,behavior:'smooth'});}
+    else{const el=items.querySelector('.item[data-id="'+id+'"]');if(el&&window.innerWidth>800)el.scrollIntoView({block:'nearest',behavior:'smooth'});}
+  }
+  items.addEventListener('click',async e=>{
+    const it=e.target.closest('.item');if(!it)return;
+    const h=H.find(x=>x.id===it.dataset.id);
+    const rb=e.target.closest('.rbtn');
+    if(!rb){select(h.id,true);return;}
+    const r=rb.dataset.r,cur=(store[h.id]||{}).reaction,next=cur===r?null:r;
+    it.querySelectorAll('.rbtn').forEach(b=>b.classList.toggle('on',b.dataset.r===next));
+    store[h.id]={...(store[h.id]||{}),reaction:next,updatedAt:new Date().toISOString()};persist();
+    const saved=it.querySelector('.saved');saved.textContent='Sending…';
+    const who=(store.__name||'').trim()||'Unnamed client';
+    try{
+      const res=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({_subject:'Map: '+who+' — '+(next||'cleared')+' — '+h.a,name:who,home:h.a+', '+h.city,price:priceTxt(h),reaction:next||'(none)',sent:new Date().toLocaleString('en-US',{timeZone:'America/Chicago'}),_template:'table',_captcha:'false'})});
+      if(!res.ok)throw 0;saved.textContent=next?'Sent to Everett':'';
+    }catch(err){saved.textContent='Saved here, but could not reach Everett. Text him instead.';}
+  });
+
+  render();
+  const b=L.latLngBounds(H.map(h=>[h.lat,h.lng]).concat([[WORK.lat,WORK.lng]]));map.fitBounds(b,{padding:[24,24]});
+  setTimeout(()=>map.invalidateSize(),200);
+})();
+</script>
+</body>
+</html>
