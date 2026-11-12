@@ -45,6 +45,8 @@ main{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 380px}
 .item .meta{color:var(--muted);font-size:.84rem;margin-top:2px}
 .item .drive{font-size:.84rem;margin-top:4px;font-variant-numeric:tabular-nums}
 .item .note{font-size:.86rem;margin-top:6px}
+.prev{display:block;margin-top:8px}
+.prev img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:8px;border:1px solid var(--line)}
 .tag{display:inline-block;font-size:.7rem;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--surface-2);margin-right:4px}
 .react{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;align-items:center}
 .rbtn{border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:999px;padding:5px 11px;font:inherit;font-size:.82rem;font-weight:600;cursor:pointer}
@@ -79,7 +81,7 @@ main{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 380px}
   <div id="list">
     <div class="namebar"><label for="viewer-name">Your name (so Everett knows who said what)</label><input id="viewer-name" placeholder="Breena or Jerome"></div>
     <div id="items"></div>
-    <p class="foot">Drive times were checked from 4250 Samuell Blvd, Mesquite on Thursday afternoon, Nov 12, and most routes use toll lanes; rush hour runs longer. Resale details are from the MLS. New-construction prices are from builder and listing sites on Nov 12 and can change; pins for brand-new streets are approximate. Everett Jefferson, Realtor® · eXp Realty – Hunt Group Collective · 240-565-8941</p>
+    <p class="foot">Drive times were checked from 4250 Samuell Blvd, Mesquite on Thursday afternoon, Nov 12, and most routes use toll lanes; rush hour runs longer. Resale details are from the MLS; “All listing photos” opens Everett’s MLS client page with every photo. Preview pictures on new builds are the builder’s own community or model photos, not necessarily the exact home. New-construction prices are from builder and listing sites on Nov 12 and can change; pins for brand-new streets are approximate. Everett Jefferson, Realtor® · eXp Realty – Hunt Group Collective · 240-565-8941</p>
   </div>
 </main>
 
@@ -119,22 +121,22 @@ main{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 380px}
     {id:'21340756',c:'north',a:'15943 River Glen Dr',city:'Frisco',p:490000,s:'2012 · 3 bed / 2 bath · 2,394 sq ft · 3-car',d:'49 min · 41 mi',n:'Down from $560,000. Covered patio, corner lot.',lat:33.18317,lng:-96.73577},
     {id:'21412753',c:'north',a:'518 Stagg St',city:'McKinney',p:410000,s:'2025 · 5 bed / 3 bath · 3,019 sq ft',d:'58 min · 44 mi',n:'Most house for the money. Covered patio, large yard, community pool.',lat:33.1739751,lng:-96.5380714},
     // New construction (detached)
-    {id:'nb-seminole',u:'https://www.tripointehomes.com/tx/dallas-fort-worth/discovery-at-painted-tree/3904-seminole-street',c:'newb',a:'3904 Seminole St',city:'McKinney · Painted Tree (Tri Pointe)',p:499997,s:'New · 5 bed / 3 bath · 2,474 sq ft · ready now',d:'45 min · 40 mi',n:'Extended covered patio.',lat:33.2319593,lng:-96.665039},
-    {id:'nb-reveille',u:'https://normandyhomes.com/neighborhoods/mckinney/',c:'newb',a:'4624 Reveille Dr',city:'McKinney · Painted Tree (Normandy)',p:460520,s:'New · 4 bed / 3 bath · 2,420 sq ft · ready December',d:'53 min · 42 mi',n:'',lat:33.2411155,lng:-96.6773713},
-    {id:'nb-shady',u:'https://www.coventryhomes.com/dallas-ft-worth/sales-event-listing/',c:'newb',a:'2700 Shady Branch Ln',city:'McKinney · Trinity Falls (Coventry)',p:474990,s:'New · 3 bed / 2.5 bath · 2,003 sq ft · ready now',d:'55 min · 44 mi',n:'',lat:33.288695,lng:-96.6330516},
-    {id:'nb-aster',u:'https://www.highlandhomes.com/dfw/mckinney/aster-park',c:'newb',a:'Aster Park',city:'McKinney · M/I and Highland',p:440000,from:true,s:'New · gated · 40-ft lots',d:'51 min · 45 mi',n:'Homes from the $440s.',lat:33.2701707,lng:-96.7094222},
+    {id:'nb-seminole',img:'https://res.cloudinary.com/tph-prod/image/upload/ar_1200:630,c_lfill,g_auto,w_1200,q_auto:good,f_auto/v1794325691/HomesiteF-14-050_k36zf4.jpg',u:'https://www.tripointehomes.com/tx/dallas-fort-worth/discovery-at-painted-tree/3904-seminole-street',c:'newb',a:'3904 Seminole St',city:'McKinney · Painted Tree (Tri Pointe)',p:499997,s:'New · 5 bed / 3 bath · 2,474 sq ft · ready now',d:'45 min · 40 mi',n:'Extended covered patio.',lat:33.2319593,lng:-96.665039},
+    {id:'nb-reveille',img:'https://normandyhomes.com/wp-content/uploads/2024/04/McKinney.jpg',u:'https://normandyhomes.com/neighborhoods/mckinney/',c:'newb',a:'4624 Reveille Dr',city:'McKinney · Painted Tree (Normandy)',p:460520,s:'New · 4 bed / 3 bath · 2,420 sq ft · ready December',d:'53 min · 42 mi',n:'',lat:33.2411155,lng:-96.6773713},
+    {id:'nb-shady',img:'https://media.coventryhomes.com/434/2025/9/22/DAL_Trinity_Falls_Carson_124_Bee_Balm_Road__2.jpg',u:'https://www.coventryhomes.com/new-homes/tx/mckinney/trinity-falls',c:'newb',a:'2700 Shady Branch Ln',city:'McKinney · Trinity Falls (Coventry)',p:474990,s:'New · 3 bed / 2.5 bath · 2,003 sq ft · ready now',d:'55 min · 44 mi',n:'',lat:33.288695,lng:-96.6330516},
+    {id:'nb-aster',img:'https://media.hhomesltd.com/images/43942/Belmont-R_1200x700.jpg',u:'https://www.highlandhomes.com/dfw/mckinney/aster-park',c:'newb',a:'Aster Park',city:'McKinney · M/I and Highland',p:440000,from:true,s:'New · gated · 40-ft lots',d:'51 min · 45 mi',n:'Homes from the $440s.',lat:33.2701707,lng:-96.7094222},
     {id:'nb-eastridge',u:'https://www.newhomesource.com/community/tx/mckinney/eastridge-signature-series-by-meritage-homes/173620',c:'newb',a:'412 Watertown Dr',city:'McKinney · Eastridge (Meritage)',p:432062,s:'New · 5 bed / 3 bath · 3,060 sq ft',d:'56 min · 45 mi',n:'',lat:33.2317267,lng:-96.5161838},
     {id:'nb-eliana',c:'newb',a:'Eliana',city:'McKinney · M/I Homes',p:514990,from:true,s:'New · detached',d:'57 min · 48 mi',n:'A stretch above $500,000.',lat:33.252907,lng:-96.7298866},
-    {id:'nb-gramercy',u:'https://www.firsttexashomes.com/community/frisco/16506/villages-of-creekwood/',c:'newb',a:'1516 Gramercy Dr',city:'Frisco · Villages of Creekwood (First Texas)',p:564950,s:'New · 3 bed / 3 bath · 2,009 sq ft · ready now',d:'51 min · 39 mi',n:'The only new detached home under $600,000 found in Frisco.',lat:33.15321,lng:-96.90405},
+    {id:'nb-gramercy',img:'https://cdn.firsttexashomes.com/446/2025/4/4/Villages_of_Creekwood_New_Model_-_Front_Elevation.jpg?width=1200',u:'https://www.firsttexashomes.com/community/frisco/16506/villages-of-creekwood/',c:'newb',a:'1516 Gramercy Dr',city:'Frisco · Villages of Creekwood (First Texas)',p:564950,s:'New · 3 bed / 3 bath · 2,009 sq ft · ready now',d:'51 min · 39 mi',n:'The only new detached home under $600,000 found in Frisco.',lat:33.15321,lng:-96.90405},
     {id:'nb-mustang',c:'newb',a:'8827 Shoppers Ln',city:'Plano · Mustang Square (D.R. Horton)',p:531990,s:'New · 4 bed · 1,810 sq ft',d:'36 min · 32 mi',n:'Small detached home; the only new detached option in Plano.',lat:33.099724,lng:-96.79049},
     {id:'nb-crosby',u:'https://www.homes.com/new-homes/community/carroll-crest/19k1kp39h0wlx/',c:'newb',a:'1362 E Crosby Rd',city:'Carrollton · Carroll Crest (InTown)',p:561900,s:'New · 3 bed / 2.5 bath · 1,756 sq ft · ready now',d:'31 min · 26 mi',n:'The only new home in Carrollton under $600,000. May be attached; Everett is confirming.',lat:32.94831,lng:-96.90331},
-    {id:'nb-mystic',u:'https://www.bloomfieldhomes.com/new-homes/tx/oak-point/chaparral-park-50-55/',c:'newb',a:'1941 Mystic Way',city:'Oak Point · Chaparral Park (Bloomfield)',p:438000,s:'New · 4 bed / 3 bath · 2,102 sq ft · ready December',d:'55 min · 49 mi',n:'Was $465,018. Builder offering $10,000 in upgrades and $10,000 toward closing through Nov 30.',lat:33.1929972,lng:-96.9816932},
+    {id:'nb-mystic',img:'https://media.bloomfieldhomes.com/328/2026/4/7/1-print-Hitching_Post_Wy-S0404-001.jpg?width=1200',u:'https://www.bloomfieldhomes.com/new-homes/tx/oak-point/chaparral-park-50-55/',c:'newb',a:'1941 Mystic Way',city:'Oak Point · Chaparral Park (Bloomfield)',p:438000,s:'New · 4 bed / 3 bath · 2,102 sq ft · ready December',d:'55 min · 49 mi',n:'Was $465,018. Builder offering $10,000 in upgrades and $10,000 toward closing through Nov 30.',lat:33.1929972,lng:-96.9816932},
     {id:'nb-apollo',u:'https://www.lennar.com/new-homes/texas/dallas-ft-worth/little-elm/spiritas-ranch',c:'newb',a:'4140 Apollo Bay Ave',city:'Little Elm · Spiritas Ranch (Lennar)',p:417999,s:'New · 4 bed / 3 bath · 2,371 sq ft',d:'57 min · 51 mi',n:'',lat:33.21665,lng:-96.96984},
-    {id:'nb-cherry',u:'https://www.bloomfieldhomes.com/new-homes/tx/little-elm/available',c:'newb',a:'7220 Cherry Blossom Ln',city:'Little Elm · Union Park (Bloomfield)',p:479000,s:'New · 4 bed / 3 bath · 2,450 sq ft · ready now',d:'59 min · 47 mi',n:'Was $597,058.',lat:33.2387488,lng:-96.9196415},
-    {id:'nb-soapberry',u:'https://www.bloomfieldhomes.com/new-homes/tx/little-elm/available',c:'newb',a:'1537 Soapberry Dr',city:'Aubrey · ArrowBrooke (Bloomfield)',p:429000,s:'New · 4 bed / 3 bath · 2,098 sq ft · ready November',d:'59 min · 47 mi',n:'Was $512,580.',lat:33.2413261,lng:-96.907962},
-    {id:'nb-spur',u:'https://www.davidweekleyhomes.com/new-homes/tx/dallas-ft-worth/aubrey/sandbrock-ranch',c:'newb',a:'4413 Silver Spur Ct',city:'Aubrey · Sandbrock Ranch (David Weekley)',p:499990,s:'New · 5 bed / 4 bath · 3,209 sq ft · ready now',d:'60 min · 47 mi',n:'Builder offering up to $20,000 through Dec 31.',lat:33.265949,lng:-96.911964},
+    {id:'nb-cherry',img:'https://media.bloomfieldhomes.com/328/2024/1/3/CL_DSC_0104_small.jpg?width=1200',u:'https://www.bloomfieldhomes.com/new-homes/tx/little-elm/available',c:'newb',a:'7220 Cherry Blossom Ln',city:'Little Elm · Union Park (Bloomfield)',p:479000,s:'New · 4 bed / 3 bath · 2,450 sq ft · ready now',d:'59 min · 47 mi',n:'Was $597,058.',lat:33.2387488,lng:-96.9196415},
+    {id:'nb-soapberry',img:'https://media.bloomfieldhomes.com/328/2024/1/3/CL_DSC_0104_small.jpg?width=1200',u:'https://www.bloomfieldhomes.com/new-homes/tx/little-elm/available',c:'newb',a:'1537 Soapberry Dr',city:'Aubrey · ArrowBrooke (Bloomfield)',p:429000,s:'New · 4 bed / 3 bath · 2,098 sq ft · ready November',d:'59 min · 47 mi',n:'Was $512,580.',lat:33.2413261,lng:-96.907962},
+    {id:'nb-spur',img:'https://www.davidweekleyhomes.com/media/CommunityImage/de903e0e-f515-4a57-a449-6b1f1d1884a2.jpg',u:'https://www.davidweekleyhomes.com/new-homes/tx/dallas-ft-worth/aubrey/sandbrock-ranch',c:'newb',a:'4413 Silver Spur Ct',city:'Aubrey · Sandbrock Ranch (David Weekley)',p:499990,s:'New · 5 bed / 4 bath · 3,209 sq ft · ready now',d:'60 min · 47 mi',n:'Builder offering up to $20,000 through Dec 31.',lat:33.265949,lng:-96.911964},
     // Townhomes
-    {id:'th-collin',u:'https://www.ashtonwoods.com/dallas/collin-creek',c:'town',a:'Collin Creek',city:'Plano · Ashton Woods',p:445000,from:true,s:'New townhomes',d:'29 min · 23 mi',n:'Shortest drive of anything new.',lat:33.0166026,lng:-96.7154552},
+    {id:'th-collin',img:'https://awh.widen.net/content/i62agc1mpo/webp/AW-CollinCreek-9500.jpg?w=1200&h=620&crop=yes&keep=c&quality=80',u:'https://www.ashtonwoods.com/dallas/collin-creek',c:'town',a:'Collin Creek',city:'Plano · Ashton Woods',p:445000,from:true,s:'New townhomes',d:'29 min · 23 mi',n:'Shortest drive of anything new.',lat:33.0166026,lng:-96.7154552},
     {id:'th-fields',c:'town',a:'Fields East Village',city:'Frisco · Landon Homes',p:529990,from:true,s:'New townhomes',d:'44 min · 39 mi',n:'',lat:33.1756948,lng:-96.8072256},
     {id:'th-hazel',c:'town',a:'Hazelwood',city:'Frisco · CB JENI',p:450000,from:true,s:'New townhomes',d:'49 min · 42 mi',n:'From the mid $400s.',lat:33.21011,lng:-96.87680},
     {id:'th-enfield',c:'town',a:'2880 Enfield',city:'The Colony · Tribute Townhomes (Grenadier)',p:499900,s:'New townhome · 3 bed / 2.5 bath · 2,004 sq ft',d:'54 min · 40 mi',n:'',lat:33.1030494,lng:-96.9272381}
@@ -156,11 +158,13 @@ main{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 380px}
   const active=new Set(Object.keys(CATS));
   const markers={};
   const gmaps=h=>'https://www.google.com/maps/search/'+encodeURIComponent(h.a+', '+h.city.split(' · ')[0]+', TX');
-  const photos=h=>h.u||('https://www.google.com/search?udm=2&q='+encodeURIComponent(h.a+', '+h.city.split(' · ')[0]+', TX'));
+  const MLS='https://portal.onehome.com/en-US/share/2266445o74416';
+  const photos=h=>h.u||(/^\d+$/.test(h.id)?MLS:'https://www.google.com/search?udm=2&q='+encodeURIComponent(h.a+', '+h.city.split(' · ')[0]+', TX'));
+  const plabel=h=>h.u?'🏗 Builder page and photos':(/^\d+$/.test(h.id)?'📷 All listing photos':'📷 See photos');
   const priceTxt=h=>(h.from?'from ':'')+money(h.p);
   H.forEach(h=>{
     const m=L.marker([h.lat,h.lng],{icon:pin(CATS[h.c].color)});
-    m.bindPopup('<b class="p">'+esc(h.a)+'</b><br>'+esc(h.city)+'<br><b>'+priceTxt(h)+'</b><br>'+esc(h.s)+'<br>🚗 '+esc(h.d)+' from Jerome\'s work'+(h.n?'<br>'+esc(h.n):'')+'<br><a href="'+photos(h)+'" target="_blank" rel="noopener">📷 See photos</a> · <a href="'+gmaps(h)+'" target="_blank" rel="noopener">Google Maps</a>');
+    m.bindPopup((h.img?'<a href="'+photos(h)+'" target="_blank" rel="noopener"><img src="'+h.img+'" alt="" referrerpolicy="no-referrer" onerror="this.remove()" style="width:100%;border-radius:6px;margin-bottom:6px;display:block"></a>':'')+'<b class="p">'+esc(h.a)+'</b><br>'+esc(h.city)+'<br><b>'+priceTxt(h)+'</b><br>'+esc(h.s)+'<br>🚗 '+esc(h.d)+' from Jerome\'s work'+(h.n?'<br>'+esc(h.n):'')+'<br><a href="'+photos(h)+'" target="_blank" rel="noopener">'+plabel(h)+'</a> · <a href="'+gmaps(h)+'" target="_blank" rel="noopener">Google Maps</a>');
     m.on('click',()=>select(h.id,false));
     markers[h.id]=m;
   });
@@ -186,7 +190,8 @@ main{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 380px}
           +'<div class="meta">'+esc(h.city)+'</div><div class="meta">'+esc(h.s)+'</div>'
           +'<div class="drive">🚗 '+esc(h.d)+' from Jerome\'s work</div>'
           +(h.n?'<div class="note">'+esc(h.n)+'</div>':'')
-          +'<div class="note"><a class="ph" href="'+photos(h)+'" target="_blank" rel="noopener">📷 See photos</a></div>'
+          +(h.img?'<a class="ph prev" href="'+photos(h)+'" target="_blank" rel="noopener"><img src="'+h.img+'" alt="'+esc(h.city)+'" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.remove()"></a>':'')
+          +'<div class="note"><a class="ph" href="'+photos(h)+'" target="_blank" rel="noopener">'+plabel(h)+'</a></div>'
           +'<div class="react">'+R.map(r=>'<button class="rbtn'+(mine.reaction===r[0]?' on':'')+'" data-r="'+r[0]+'" type="button">'+r[1]+'</button>').join('')+'<span class="saved">'+(mine.reaction?'Sent to Everett':'')+'</span></div></div>';
       });
     });
