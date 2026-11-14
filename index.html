@@ -127,25 +127,30 @@ details.past>summary{cursor:pointer;font-family:var(--font-display);font-size:1.
 <body>
 <header class="day"><div class="wrap">
   <h1>Hardeman Home Tour</h1>
-  <span class="sub">Wednesday, Nov 11 · Rockwall · first showing 12:00 PM</span>
+  <span class="sub">Saturday, Nov 14 · Mesquite, Forney &amp; Heartland · first showing 9:30 AM</span>
   <span class="sub" style="margin-left:auto"><a href="map.html">Map of all homes →</a></span>
 </div></header>
 
 <div class="wrap">
   <section class="hero">
-    <div class="eyebrow">Breena &amp; Jerome · Round two · Rockwall</div>
-    <h2>Six Rockwall homes on Wednesday, south to north.</h2>
+    <div class="eyebrow">Breena &amp; Jerome · Round three · Mesquite, Forney, Heartland</div>
+    <h2>Six homes on Saturday, starting in Mesquite and finishing in Heartland.</h2>
     <p>Tap <b>Love</b>, <b>Like</b> or <b>Pass</b> under each house as you walk through it, and leave a note while it is fresh. Each tap goes straight to Everett’s phone, and your picks stay on this page the next time you open it on this device.</p>
     <div class="namebar"><label for="viewer-name">Your name (so Everett knows who said what)</label><input id="viewer-name" placeholder="Breena or Jerome"></div>
     <div class="stats" id="stats">
       <div class="stat"><b id="st-count">6</b><span>homes on the route</span></div>
-      <div class="stat"><b>12:00 – 3:50</b><span>showing window</span></div>
-      <div class="stat"><b>~16 mi</b><span>total driving, 32 min</span></div>
-      <div class="stat"><b>4 of 6</b><span>have a pool</span></div>
+      <div class="stat"><b>9:30 – 1:50</b><span>showing window</span></div>
+      <div class="stat"><b>~32 mi</b><span>total driving, 71 min</span></div>
+      <div class="stat"><b>16 – 25 min</b><span>to Jerome’s job from each home</span></div>
     </div>
       </section>
 
   <div class="timeline" id="timeline"></div>
+
+  <details class="past" id="past-wed">
+    <summary>Wednesday, Nov 11 tour · Rockwall · 6 homes (done)</summary>
+    <div class="timeline" id="timeline-wed"></div>
+  </details>
 
   <details class="past" id="past">
     <summary>Saturday, Nov 8 tour · Heath and Forney · 6 homes (done)</summary>
@@ -156,7 +161,7 @@ details.past>summary{cursor:pointer;font-family:var(--font-display);font-size:1.
 
   <footer>
     <p><b>Financing basis:</b> Rocket Mortgage verified approval, conventional 30-year fixed at 6.63%, approved to $600,000, expires 01/30/2027. Payments shown use $30,000 down and include principal and interest, the current tax bill, HOA, estimated PMI (0.5% of the loan per year) and estimated insurance (about 0.65% of price per year). Rocket will quote exact PMI and insurance. Taxes reset to the purchase price after closing, so budget about 10% above the figures shown.</p>
-    <p><b>Note on the down payment:</b> the approval caps the loan at 90% of price. $30,000 is 6 to 8% on these homes, so each card also shows the payment at a true 10% down. Everett is confirming options with Blake McMahon at Rocket.</p>
+    <p><b>Note on the down payment:</b> the approval caps the loan at 90% of price. $30,000 is 7 to 9% on these homes, so each card also shows the payment at a true 10% down. Everett is confirming options with Blake McMahon at Rocket.</p>
     <p>Want another home added to this list? Text Everett the address or MLS number and it will be on here within the hour.</p>
     <p>Everett Jefferson, Realtor® · eXp Realty – Hunt Group Collective · 240-565-8941 · everett.jefferson@exprealty.com</p>
   </footer>
@@ -185,6 +190,16 @@ details.past>summary{cursor:pointer;font-family:var(--font-display);font-size:1.
 
   ];
 
+  // Saturday Nov 14. Mesquite, then Forney north of US-80, then south to Heartland.
+  const SAT2=[
+    {id:'21342607',order:1,time:'9:30 – 10:00',addr:'1013 Hampstead Dr',city:'Mesquite, TX 75181',mls:'21342607',price:415000,yr:'2000',sqft:3605,bb:'5 / 3.5',gar:'3-car',lot:'0.37 ac',tax:11654,hoa:0,community:'Creek Crossing Estates · Mesquite ISD · no HOA',pool:true,drive:'Start here',notes:'The only pool on today’s list and the biggest home: 3,605 sq ft, five bedrooms and a 3-car garage on over a third of an acre. No HOA. The price dropped to $415,000 on Thursday (it started at $449,900), and the seller is offering up to 2% in credits toward the rate or closing costs with their preferred lender. 107 days on market. 18 min to Jerome’s job.',link:''},
+    {id:'21365564',order:2,time:'10:20 – 10:50',addr:'911 Allegro Ave',city:'Forney, TX 75126',mls:'21365564',price:429999,yr:'2025 new',sqft:2465,bb:'4 / 3',gar:'3-car',lot:'0.13 ac',tax:9460,taxEst:true,hoa:1125,community:'Lovers Landing · Forney ISD · no MUD',drive:'17 min · 9.0 mi via US-80',notes:'Brand-new single story by Risewell Homes, finished and ready now, in the same neighborhood as 316 Symphony, your favorite from the first tour. Four bedrooms, three full baths and a study. The listing shows a 3-car garage; the description says two, so we will confirm on site. The price dropped to $429,999 on Friday (it started at $454,999). Shown through the builder, whose open house runs 10 to 6. The tax bill is an estimate at 2.2% since there is no assessment yet. 16 min to Jerome’s job, the shortest of the day.',link:''},
+    {id:'21383209',order:3,time:'11:05 – 11:35',addr:'1056 Barkers Pond Ave',city:'Forney, TX 75126',mls:'21383209',price:329990,yr:'2026 new',sqft:2650,bb:'4 / 3.5',gar:'2-car',lot:'0.13 ac',tax:7260,taxEst:true,hoa:800,community:'Walden Pond · Forney ISD',drive:'13 min · 4.5 mi via Ridgecrest Rd',notes:'The lowest price of the day. A new DRB Homes build, the Wayfinder plan: primary bedroom downstairs, with a game room, three bedrooms and two baths upstairs. It is still under construction, so we may walk the model or a similar home. The price dropped to $329,990 on Friday (it started at $361,268). The tax bill is an estimate at 2.2%; we will ask the builder for the exact rate and whether any district assessment applies. 24 min to Jerome’s job.',link:''},
+    {id:'21426904',order:4,time:'11:50 – 12:20',addr:'1913 Huron Dr',city:'Forney, TX 75126',mls:'21426904',price:349000,yr:'2024',sqft:2715,bb:'4 / 3',gar:'2-car',lot:'0.14 ac',tax:11927,hoa:780,community:'Las Lomas · Forney ISD · MUD',drive:'13 min · 5.1 mi via Windmill Farms Blvd',notes:'Built in 2024 and move-in ready. Three bedrooms and two baths downstairs; a game room, bedroom and full bath upstairs. Quartz kitchen with a gas range, and a tiled fireplace in the living room. The seller is offering $5,000 toward a rate buydown. Community pool, fitness center, trails and fishing lakes. It sits in a MUD, so the tax bill is the highest of the day at 3.4% of the price. Vacant, listed 10 days ago. 22 min to Jerome’s job.',link:''},
+    {id:'21381509',order:5,time:'12:35 – 1:05',addr:'729 Lombard Ln',city:'Forney, TX 75126',mls:'21381509',price:407000,yr:'2021',sqft:3112,bb:'5 / 4.5',gar:'2-car',lot:'0.14 ac',tax:8366,hoa:850,community:'Overland Grove · Forney ISD · no MUD or PID',drive:'15 min · 7.1 mi via US-80 and FM 548',notes:'Five bedrooms, four and a half baths, a home office and an upstairs game room. The solar panels will be paid off by the seller with an acceptable offer. No MUD or PID, so it has the lowest tax rate of the day. Community pool, clubhouse, dog park and trails. It started at $437,000. Owner occupied. 23 min to Jerome’s job.',link:''},
+    {id:'21264049',order:6,time:'1:20 – 1:50',addr:'3608 Kimberly Ct',city:'Heartland (Forney), TX 75126',mls:'21264049',price:357000,yr:'2020',sqft:2745,bb:'4 / 3',gar:'2-car',lot:'0.23 ac',tax:11015,hoa:552,community:'Heartland · Crandall ISD · MUD',drive:'13 min · 6.6 mi via FM 2757',notes:'The Heartland home, on a cul-de-sac with nearly a quarter acre. An office, the primary suite and two more bedrooms are downstairs; a second living area, bedroom and full bath are upstairs. The seller is offering $5,000 in concessions. Heartland has three pools with waterslides, a fitness center, a fishing lake and trails. It sits in a MUD, so taxes run about 3.1% of the price. It started at $380,000 and has been listed 146 days. Owner occupied. 25 min to Jerome’s job.',link:''}
+  ];
+
   // Wednesday Nov 11, Rockwall. Ordered south to north.
   const WED=[
     {id:'21414448',order:1,time:'12:00 – 12:30',addr:'1455 Corrara Dr',city:'Rockwall, TX 75032',mls:'21414448',price:475000,yr:'2017',sqft:2751,bb:'4 / 3',gar:'3-car',lot:'0.23 ac',tax:7089,hoa:996,community:'Sonoma Verde · Rockwall ISD',drive:'Start here',notes:'Newest home of the day and the only single story with a 3-car garage. The 4th bedroom is its own attached suite with a separate front entry, sitting room, kitchenette and full bath. Open kitchen, dining and living with a stone gas fireplace, plus an office. Covered patio with a fan and a fenced yard. Roof replaced 2023. On the market 10 days. No pool; the community has one.',link:''},
@@ -195,11 +210,12 @@ details.past>summary{cursor:pointer;font-family:var(--font-display);font-size:1.
     {id:'21379383',order:6,time:'3:20 – 3:50',addr:'2774 Cobblestone Dr',city:'Rockwall, TX 75087',mls:'21379383',price:439999,yr:'2004',sqft:2448,bb:'3 / 2.5',gar:'2-car',lot:'0.37 ac',tax:7729,hoa:300,community:'Stoney Hollow · Rockwall ISD',pool:true,drive:'6 min · 3.2 mi via N Goliad St',notes:'The biggest yard of the day at over a third of an acre, on a cul-de-sac backing to a greenbelt. Pool, fire pit, covered patio and a dedicated dog run, with grass left over. Three bedrooms plus a game room. Price just dropped to $439,999 and the sellers are motivated; their lender is offering a 1% first-year rate buydown.',link:''}
   ];
 
-  const ALL=WED.concat(SEED);
+  const ALL=SAT2.concat(WED,SEED);
   const REACTIONS=[['love','Love','♥'],['like','Like','👍'],['pass','Pass','✕']];
   const ENDPOINT='https://formsubmit.co/ajax/everett.jefferson@exprealty.com';
   const timeline=document.getElementById('timeline');
   const timelineSat=document.getElementById('timeline-sat');
+  const timelineWed=document.getElementById('timeline-wed');
   let store={};
   try{store=JSON.parse(localStorage.getItem('hardeman-tour')||'{}')||{}}catch(e){store={}}
   const nameInput=document.getElementById('viewer-name');
@@ -212,8 +228,9 @@ details.past>summary{cursor:pointer;font-family:var(--font-display);font-size:1.
   function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 
   function render(){
-    document.getElementById('st-count').textContent=WED.length;
-    renderInto(timeline,byOrder(WED));
+    document.getElementById('st-count').textContent=SAT2.length;
+    renderInto(timeline,byOrder(SAT2));
+    renderInto(timelineWed,byOrder(WED));
     renderInto(timelineSat,byOrder(SEED));
   }
   function renderInto(target,homes){
@@ -230,7 +247,7 @@ details.past>summary{cursor:pointer;font-family:var(--font-display);font-size:1.
         +'<h3><a href="'+mapsLink(h)+'" target="_blank" rel="noopener">'+esc(h.addr)+'</a></h3>'
         +'<div class="meta">'+esc(h.city)+' · MLS '+esc(h.mls)+'</div></div>'
         +'<div class="price">'+money(h.price)+'</div></div>';
-      html+='<div class="chips"><span class="chip accent">'+esc(h.community)+'</span><span class="chip">Built '+esc(h.yr)+'</span>'+(h.pool?'<span class="chip">Pool</span>':'')+(h.fav?'<span class="chip fav">♥ Your favorite from Saturday</span>':'')+'</div>';
+      html+='<div class="chips"><span class="chip accent">'+esc(h.community)+'</span><span class="chip">Built '+esc(h.yr)+'</span>'+(h.pool?'<span class="chip">Pool</span>':'')+(h.fav?'<span class="chip fav">♥ Your favorite from the first tour</span>':'')+'</div>';
       html+='<div class="facts">'
         +'<div class="fact"><span>Sq ft</span><b>'+Number(h.sqft).toLocaleString()+'</b></div>'
         +'<div class="fact"><span>Beds / baths</span><b>'+esc(h.bb)+'</b></div>'
@@ -297,6 +314,7 @@ details.past>summary{cursor:pointer;font-family:var(--font-display);font-size:1.
   }
   timeline.addEventListener('click',onClick);
   timelineSat.addEventListener('click',onClick);
+  timelineWed.addEventListener('click',onClick);
 
   render();
 })();
